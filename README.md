@@ -5,7 +5,7 @@ Quick-and-dirty patches to smooth out our Heroku workflow.
 ## .heroku-env
 
 Create this (YAML) file in the root of your project. It should look
-something like this:
+something like:
 
     default: next
     pattern: audiosocket-awesometown-%s
@@ -16,11 +16,20 @@ remotes for Heroku on our local dev machines, it lets you specify a
 default app name.
 
 If you specify a pattern, it'll be used to munge the `--app` argument
-if it's passed. It will also expand the default. Use `%s` to mark the
-part of the pattern you'd like to replace. Example:
+if it's passed. Use `%s` to mark the part of the pattern you'd like to
+replace. Example:
 
     $ heroku foo --app master  # is actually...
     $ heroku foo --app audiosocket-awesometown-master
+
+If you specify a default, it'll be added and expanded as
+well. Example:
+
+    $ heroku foo  # is actually...
+    $ heroku foo --app audiosocket-awesometown-next
+
+It'll also try to be smart about `--app` when it shouldn't be munged,
+but no guarantees.
 
 ## Install/Upgrade
 
