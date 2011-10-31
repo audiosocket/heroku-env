@@ -16,6 +16,7 @@ class Heroku::Command::Base
         end
       end
 
+      warn "Running on #{app}."
       options[:app] = app
     end
 
