@@ -22,6 +22,10 @@ part of the pattern you'd like to replace. Example:
     $ heroku foo --app master  # is actually...
     $ heroku foo --app audiosocket-awesometown-master
 
+## Install/Upgrade
+
+    $ heroku plugins:install git@github.com:audiosocket/heroku-env.git
+
 ## License (MIT)
 
 Copyright 2011 Audiosocket (it@audiosocket.com)
