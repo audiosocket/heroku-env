@@ -1,23 +1,41 @@
 require "yaml"
 
 module Heroku
-  module Env
-    @config = YAML.load File.read(".heroku-env")
+  def self.env
+    @env ||= Env.new ".heroku-env"
+  end
 
-    def self.[] key
-      @config[key] || @config[key.intern]
+  class Env
+    def initialize file
+      @config = YAML.load File.read file
     end
 
-    def self.munge str
-      if str && self[:pattern]
+    def default
+      @config["default"]
+    end
+
+    def default?
+      !!default
+    end
+
+    def munge app
+      if app && pattern?
         prefix, suffix = pattern.split "%s"
 
-        unless str.start_with?(prefix) or str.end_with?(suffix)
-          str = pattern.sub "%s", str
+        unless app.start_with?(prefix) or app.end_with?(suffix)
+          app = pattern.sub "%s", app
         end
       end
 
-      str
+      app
+    end
+
+    def pattern
+      @config["pattern"]
+    end
+
+    def pattern?
+      !!pattern
     end
   end
 end
@@ -26,8 +44,8 @@ class Heroku::Command::Base
   alias_method :extract_app_without_env, :extract_app
 
   def extract_app
-    options[:app]     = Heroku::Env.munge options[:app] || Heroku::Env[:default]
-    options[:confirm] = Heroku::Env.munge options[:confirm]
+    options[:app]     = Heroku.env.munge options[:app] || Heroku.env.default
+    options[:confirm] = Heroku.env.munge options[:confirm]
 
     warn "Running on #{options[:app]}."
     extract_app_without_env
