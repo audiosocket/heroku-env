@@ -30,7 +30,6 @@ class Heroku::Command::Base
     options[:confirm] = Heroku::Env.munge options[:confirm]
 
     warn "Running on #{options[:app]}."
+    extract_app_without_env
   end
-
-  extract_app_without_env
 end
