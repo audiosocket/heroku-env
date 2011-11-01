@@ -2,7 +2,7 @@ require "yaml"
 
 module Heroku
   module Env
-    @config = Yaml.load File.read(".heroku-env")
+    @config = YAML.load File.read(".heroku-env")
 
     def self.[] key
       @config[key] || @config[key.intern]
