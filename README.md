@@ -10,13 +10,10 @@ something like:
     default: next
     pattern: audiosocket-awesometown-%s
 
-With this plugin installed, information in this file will be used to
-make Heroku run more smoothly. Since we don't normally have git
-remotes for Heroku on our local dev machines, it lets you specify a
-default app name.
-
-If you specify a pattern, it'll be used to munge the `--app` argument
-if it's passed. Use `%s` to mark the part of the pattern you'd like to
+Since we don't normally have git remotes for Heroku on our local dev
+machines, it lets you specify a default app name. If you specify a
+pattern, it'll be used to munge the `--app` argument if it's
+passed. Use `%s` to mark the part of the pattern you'd like to
 replace:
 
     $ heroku foo --app master  # is actually...
@@ -36,6 +33,8 @@ There's a `release` command, which is dangerously simple:
 
     $ heroku release  # is actually...
     $ git push -f git@heroku.com:audiosocket-awesometown-next.git HEAD:master
+
+It respects `--app` just as you'd expect.
 
 ## Install/Upgrade
 
