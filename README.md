@@ -17,19 +17,25 @@ default app name.
 
 If you specify a pattern, it'll be used to munge the `--app` argument
 if it's passed. Use `%s` to mark the part of the pattern you'd like to
-replace. Example:
+replace:
 
     $ heroku foo --app master  # is actually...
     $ heroku foo --app audiosocket-awesometown-master
 
-If you specify a default, it'll be added and expanded as
-well. Example:
+If you specify a default, it'll be added and expanded as well:
 
     $ heroku foo  # is actually...
     $ heroku foo --app audiosocket-awesometown-next
 
 It'll also try to be smart about `--app` when it shouldn't be munged,
 but no guarantees.
+
+## Releasing
+
+There's a `release` command, which is dangerously simple:
+
+    $ heroku release  # is actually...
+    $ git push -f git@heroku.com:audiosocket-awesometown-next.git HEAD:master
 
 ## Install/Upgrade
 
