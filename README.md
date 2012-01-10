@@ -24,8 +24,10 @@ If you specify a default, it'll be added and expanded as well:
     $ heroku foo  # is actually...
     $ heroku foo --app audiosocket-awesometown-next
 
-It'll also try to be smart about `--app` when it shouldn't be munged,
-but no guarantees.
+If you don't want your `--app` argument to be expanded, prefix it:
+
+    $ heroku foo --app @master # is actually...
+    $ heroku foo --app master
 
 ## Releasing
 

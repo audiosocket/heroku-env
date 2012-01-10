@@ -20,11 +20,8 @@ module Heroku
 
     def munge app
       if app && pattern?
-        prefix, suffix = pattern.split "%s"
-
-        unless app.start_with?(prefix) or app.end_with?(suffix)
-          app = pattern.sub "%s", app
-        end
+        return app[1..-1] if app.start_with? "@"
+        app = pattern.sub "%s", app
       end
 
       app
