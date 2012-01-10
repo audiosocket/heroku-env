@@ -41,13 +41,13 @@ module Heroku
 end
 
 class Heroku::Command::Base
-  alias_method :extract_app_without_env, :extract_app
+  alias_method :app_without_env, :app
 
-  def extract_app
+  def app
     options[:app]     = Heroku.env.munge options[:app] || Heroku.env.default
     options[:confirm] = Heroku.env.munge options[:confirm]
 
     warn "Running on #{options[:app]}."
-    extract_app_without_env
+    app_without_env
   end
 end
