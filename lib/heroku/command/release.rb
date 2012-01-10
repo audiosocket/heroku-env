@@ -7,6 +7,6 @@ class Heroku::Command::Release < Heroku::Command::Base
   # release HEAD to app
 
   def index
-    exec "git", "push", "-f", "git@heroku.com:#{extract_app}.git", "HEAD:master"
+    exec "git", "push", "-f", "git@heroku.com:#{app}.git", "HEAD:master"
   end
 end
