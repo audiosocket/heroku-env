@@ -19,9 +19,10 @@ module Heroku
     end
 
     def munge app
-      if app && pattern?
-        return app[1..-1] if app.start_with? "@"
-        app = pattern.sub "%s", app
+      return app if app.nil? or not app.start_with? "@"
+
+      if pattern?
+        app = pattern.sub "%s", app[1..-1]
       end
 
       app
