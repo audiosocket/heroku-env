@@ -11,29 +11,16 @@ module Heroku
     end
 
     def default
-      @config["default"]
-    end
-
-    def default?
-      !!default
+      "@" + @config["default"] if @config["default"]
     end
 
     def munge app
       return app if app.nil? or not app.start_with? "@"
-
-      if pattern?
-        app = pattern.sub "%s", app[1..-1]
-      end
-
-      app
+      pattern ? pattern.sub("%s", app[1..-1]) : app
     end
 
     def pattern
       @config["pattern"]
-    end
-
-    def pattern?
-      !!pattern
     end
   end
 end
@@ -45,7 +32,9 @@ class Heroku::Command::Base
     options[:app]     = Heroku.env.munge options[:app] || Heroku.env.default
     options[:confirm] = Heroku.env.munge options[:confirm]
 
-    warn "Running on #{options[:app]}."
+    warn "App is #{options[:app]}." unless @already_said_which_app
+    @already_said_which_app = true
+
     app_without_env
   end
 end
